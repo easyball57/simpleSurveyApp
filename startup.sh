@@ -1,6 +1,8 @@
 #!/bin/bash
 
+cd /app
+
 export FLASK_APP=simplesurveyapp.py
 
-flask run
+flask run --host=0.0.0.0
 

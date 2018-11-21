@@ -8,12 +8,12 @@ RUN pip install --upgrade pip
 
 RUN pip install flask
 
-COPY /db /db
-COPY simpleSurveyApp.py /app
-COPY startup.sh /app
+COPY db /db/
+COPY simplesurveyapp.py /app/
+COPY startup.sh /app/
 
-WORKDIR /app
+WORKDIR /app/
 
 EXPOSE 5000
 
-ENTRYPOINT ["startup.sh"]
+ENTRYPOINT ["/app/startup.sh"]
