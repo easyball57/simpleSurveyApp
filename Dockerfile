@@ -4,9 +4,9 @@ RUN apt-get update
 
 RUN apt-get install sqlite3
 
-pip install --upgrade pip
+RUN pip install --upgrade pip
 
-pip install flask
+RUN pip install flask
 
 COPY /db /db
 COPY simpleSurveyApp.py /app
