@@ -40,6 +40,19 @@ def answers_survey(survey_id):
 		result = result + str(row[0]) + ";" + str(row[1]) + ";" + row[2] + "<br>"
 	return result
 
+@app.route('/results/<int:survey_id>')
+def results_survey(survey_id):
+	# show the list of answers for a given survey id survey_id
+	con = lite.connect('/db/simpleSurveyApp.db')
+	cur = con.cursor()
+	cur.execute("SELECT survey_id, answer, count(*) FROM SSA WHERE survey_id=? GROUP BY answer", (survey_id,))
+	rows = cur.fetchall()
+	con.close()
+	result = "survey_id;answer;number<br>"
+	for row in rows:
+		result = result + str(row[0]) + ";" + str(row[1]) + ";" + row[2] + "<br>"
+	return result
+
 @app.route('/list')
 def list_survey():
 	# show the list of survey id's
