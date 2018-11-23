@@ -8,15 +8,13 @@ RUN pip install --upgrade pip
 
 RUN pip install flask
 
-COPY db /db/
 COPY simplesurveyapp.py /app/
 COPY startup.sh /app/
+COPY db /app/db/
 
 RUN chmod g=u /etc/passwd
-RUN chmod -R g=u /app
-RUN chmod -R g=u /db
-RUN chmod ug+x /app/startup.sh
-    
+RUN chmod -R 0777 /app
+
 WORKDIR /app/
 
 EXPOSE 5000
