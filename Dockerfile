@@ -15,6 +15,7 @@ RUN mkdir /db
 
 RUN chmod g=u /etc/passwd
 RUN chmod -R 0777 /app
+RUN chmod -R 0777 /db
 
 WORKDIR /app/
 
