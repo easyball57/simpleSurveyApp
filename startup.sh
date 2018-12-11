@@ -13,6 +13,10 @@ fi
 
 cd /app
 
+if [! -f /db/simplesurveyapp.db]; then
+  cp /app/db/simplesurveyapp.db /db/simplesurveyapp.db
+fi
+
 export FLASK_APP=simplesurveyapp.py
 
 flask run --host=0.0.0.0
