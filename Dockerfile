@@ -11,6 +11,7 @@ RUN pip install flask
 COPY simplesurveyapp.py /app/
 COPY startup.sh /app/
 COPY db /app/db/
+RUN mkdir /db
 
 RUN chmod g=u /etc/passwd
 RUN chmod -R 0777 /app
