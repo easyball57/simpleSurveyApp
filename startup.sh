@@ -13,7 +13,7 @@ fi
 
 cd /app
 
-if [! -f /db/simplesurveyapp.db]; then
+if [ ! -f /db/simplesurveyapp.db ]; then
   cp /app/db/simplesurveyapp.db /db/simplesurveyapp.db
 fi
 

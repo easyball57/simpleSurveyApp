@@ -3,7 +3,7 @@ from datetime import datetime
 
 from flask import Flask
 
-dbFile = '/db/simpleSurveyApp.db'
+dbFile = '/db/simplesurveyapp.db'
 
 app = Flask(__name__)
 
