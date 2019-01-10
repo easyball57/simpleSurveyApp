@@ -104,8 +104,8 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
 	'''
 	result = result + 'var survey_nb=' + str(survey_id) + ';'
-	result = result + 'var yes_no=' + str(rows[0][0]) + ';'
-	result = result + 'var yes_nb=' + str(rows[1][0]) + ';'
+	result = result + 'var yes_no=' + str(rows[0][2]) + ';'
+	result = result + 'var yes_nb=' + str(rows[1][2]) + ';'
 	result = '''
   var data = google.visualization.arrayToDataTable([
   ["Answers", "Numbers"],
