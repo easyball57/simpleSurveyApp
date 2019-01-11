@@ -2,37 +2,62 @@ import sqlite3 as lite
 from datetime import datetime
 import os
 
-from flask import Flask
+from flask import Flask, request, make_response, render_template
 
 #dbFile = './db/simplesurveyapp.db'
 dbFile = os.environ["SSA_DB"]
 
 NO_YES=('No', 'Yes')
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='./')
+
+def yes_no(survey_id, answer):
+	all = request.cookies.get('ssa')
+	if(all is None):
+		all=""
+	if(all.find("D"+str(survey_id)+"F") == -1):
+		# add the answer YES to the survey id survey_id
+		all = all + "D" + str(survey_id) + "F"
+		con = lite.connect(dbFile)
+		con.execute("INSERT INTO SSA (survey_id, answer, ts) VALUES (?,?,?)", (survey_id, answer, datetime.now()))
+		con.commit()
+		con.close()
+		resp = make_response(render_template('thanks.html'))
+		resp.set_cookie('ssa', all)
+	else:
+		resp = make_response(render_template('already.html'))
+	return resp
 
 @app.route('/')
-def hello_world():
-	result = "Simple Survey App : " + dbFile + " <br>"
+def home_page():
+	return "Welcome to Simple Survey App v1.0" 
+
+@app.route('/cook')
+def cook():
+	return request.cookies.get('ssa')
+
+@app.route('/kooc')
+def kooc():
+	resp = make_response(render_template('cook.html'))
+	resp.set_cookie('ssa', '')
+	return resp 
+
+@app.route('/help')
+def help():
+	result = "Simple Survey App DB : " + dbFile + " <br>"
+	result = result + "Cookies : ssa : " + request.cookies.get('ssa') + " <br>"
+	f = open("README.md", "r")
+	for line in f:
+		result = result + line + "<br>"
 	return result
 
 @app.route('/yes/<int:survey_id>')
 def yes_survey(survey_id):
-	# add the answer YES to the survey id survey_id
-	con = lite.connect(dbFile)
-	con.execute("INSERT INTO SSA (survey_id, answer, ts) VALUES (?,?,?)", (survey_id, True, datetime.now()))
-	con.commit()
-	con.close()
-	return 'Thanks for participating'
+	return yes_no(survey_id, 1)
 
 @app.route('/no/<int:survey_id>')
 def no_survey(survey_id):
-	# add the answer NO to the survey id survey_id
-	con = lite.connect(dbFile)
-	con.execute("INSERT INTO SSA (survey_id, answer, ts) VALUES (?,?,?)", (survey_id, False, datetime.now()))
-	con.commit()
-	con.close()
-	return 'Thanks for participating'
+	return yes_no(survey_id, 0)
 
 @app.route('/answers/<int:survey_id>')
 def answers_survey(survey_id):

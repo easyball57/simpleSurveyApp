@@ -9,6 +9,7 @@ RUN pip install --upgrade pip
 RUN pip install flask
 
 COPY simplesurveyapp.py /app/
+COPY *.html /app/
 COPY startup.sh /app/
 COPY db /app/db/
 RUN mkdir /db
