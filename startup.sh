@@ -1,5 +1,9 @@
 #!/bin/bash
 
+export SSA_DB='/home/eric/simpleSurveyApp/db/simplesurveyapp.db'
+#export SSA_DB='/db/simplesurveyapp.db'
+
+
 # Creating dynamic user
 
 if ! whoami &> /dev/null; then
