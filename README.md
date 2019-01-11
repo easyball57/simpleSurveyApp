@@ -30,6 +30,7 @@ To have a pie chart with the results of survey number 'survey_nb'
 
 To reset a specific survey number 'survey_nb'
 
-/reset/'survey-nb'
+/reset/'survey_nb'/'nb_of_yes'
 
+You have also to provide the nb of YES for this survey as a control.
 Be carreful no confirmation will be asked! Once fired, all is gone!! 
