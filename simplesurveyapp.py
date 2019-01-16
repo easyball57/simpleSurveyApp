@@ -44,8 +44,11 @@ def kooc():
 
 @app.route('/help')
 def help():
+	all = request.cookies.get('ssa')
+	if(all is None):
+		all=""
 	result = "Simple Survey App DB : " + dbFile + " <br>"
-	result = result + "Cookies : ssa : " + request.cookies.get('ssa') + " <br>"
+	result = result + "Cookies : ssa : " + all + " <br>"
 	f = open("README.md", "r")
 	for line in f:
 		result = result + line + "<br>"
